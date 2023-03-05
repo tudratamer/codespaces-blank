@@ -1,0 +1,96 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System;
+
+public class tembakan : MonoBehaviour
+{
+    bool senjatagame = false;
+    bool lasergunaktif = false;
+    public GameObject gunplayer;
+    int energi = 100;
+    [SerializeField] Text energiText;
+    public GameObject peluru;
+    public Transform pointtembak;
+    [SerializeField] Text energibackpack;
+    int obatenergi = 1;
+    public GameObject buttonenergi;
+    [SerializeField] private Animator playeranimasi;
+    public AudioSource suara_tembakan;
+    void start()
+    {
+        playeranimasi = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        gunakanenergi();
+        if (Input.GetKeyDown(KeyCode.F) && senjatagame == true && lasergunaktif == true)
+        {
+            GameObject peluruS = Instantiate(peluru, pointtembak.position, pointtembak.rotation);
+            peluruS.GetComponent<Rigidbody>().velocity = transform.forward * 1000;
+            Destroy(peluruS, 2f);
+            playeranimasi.SetBool("tembak", true);
+            suara_tembakan.Play();
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (energi > 0)
+                {
+                    energi -= 1;
+                    energiText.text = "  :" + energi;
+                }
+            }
+            if (energi <= 0)
+            {
+                Destroy(peluruS);
+            }
+            
+            
+        }
+         if (Input.GetKeyDown(KeyCode.Alpha1) && senjatagame == true)
+        {
+            gunplayer.SetActive(true);
+            lasergunaktif = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            gunplayer.SetActive(false);
+            lasergunaktif = false;
+        }
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("energi"))
+        {
+            obatenergi += 1;
+            energibackpack.text = "OBAT KUAT :" + obatenergi;
+            Destroy(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("lasergun"))
+        {
+            senjatagame = true;
+            Destroy(other.gameObject);
+        }
+    }
+   public void gunakanenergi()
+    {
+        
+        if (obatenergi >= 1 && Input.GetKeyDown(KeyCode.K))
+        {
+            energi += 5;
+            energiText.text = "  :" + energi;
+            obatenergi -= 1;
+            energibackpack.text = "OBAT KUAT :" + obatenergi;
+        }
+        else if (obatenergi <= 0)
+        {
+            energi += 0;
+            energiText.text = "  :" + energi;
+            obatenergi -= 0;
+            energibackpack.text = "OBAT KUAT :" + obatenergi;
+        }
+    }
+}

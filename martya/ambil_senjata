@@ -1,0 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ambil_senjata : MonoBehaviour
+{
+    public GameObject lasergun;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("lasergun"))
+        {
+            lasergun.SetActive(true);
+            Destroy(other.gameObject);
+        }
+    }
+}

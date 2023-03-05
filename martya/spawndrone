@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class spawndrone : MonoBehaviour
+{
+    public GameObject[] Object;
+    public float spawntime;
+    public float spawndelay;
+
+    void Start()
+    {
+        InvokeRepeating("spawn", spawntime, spawndelay);
+    }
+
+    void spawn()
+    {
+
+        int randomIndex = Random.Range(0, Object.Length);
+            Vector3 randomSpawnPosition = new Vector3(Random.Range(411, 412), 13, Random.Range(-4308, -4309));
+
+            Instantiate(Object[randomIndex], randomSpawnPosition, Quaternion.identity);
+    }
+    void Upadate()
+    {
+        if (spawndelay >= 0.1f)
+        {
+            spawndelay += 0.01f;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class chest : MonoBehaviour
+{
+    public GameObject isi;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("attack"))
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+            isi.SetActive(true);
+
+
+        }
+    }
+}

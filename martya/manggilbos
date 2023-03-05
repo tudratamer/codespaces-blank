@@ -1,0 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class manggilbos : MonoBehaviour
+{
+    public GameObject bossdrone;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("bosscall"))
+        {
+            Destroy(other.gameObject);
+            bossdrone.SetActive(true);
+
+        }
+    }
+}

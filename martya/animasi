@@ -1,0 +1,70 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class animasi : MonoBehaviour
+{
+    [SerializeField] private Animator playeranimasi;
+    void start()
+    {
+        playeranimasi= GetComponent<Animator> ();
+    }
+    void Update()
+    {
+        //Press the up arrow button to reset the trigger and set another one
+        if (Input.GetKey(KeyCode.W))
+        {
+            //Reset the "Crouch" trigger
+            playeranimasi.SetBool("jalan-jalan",true);
+            playeranimasi.SetBool("idle", false);
+            playeranimasi.SetBool("loncat", false);
+
+        }
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.Space))
+        {
+            //Reset the "Crouch" trigger
+            playeranimasi.SetBool("jalan-jalan", false);
+            playeranimasi.SetBool("idle", false);
+            playeranimasi.SetBool("loncat", true);
+
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            //Reset the "Crouch" trigger
+            playeranimasi.SetBool("idle",true);
+            playeranimasi.SetBool("jalan-jalan", false);
+            playeranimasi.SetBool("loncat", false);
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //Reset the "Crouch" trigger
+            playeranimasi.SetBool("loncat", true);
+            playeranimasi.SetBool("jalan-jalan", false);
+            playeranimasi.SetBool("idle", false);
+
+
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            //Reset the "Crouch" trigger
+            playeranimasi.SetBool("loncat", false);
+            playeranimasi.SetBool("jalan-jalan", false);
+            playeranimasi.SetBool("idle", true);
+
+
+        }
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            //Reset the "Crouch" trigger
+            playeranimasi.SetBool("loncat", false);
+            playeranimasi.SetBool("jalan-jalan", false);
+            playeranimasi.SetBool("idle", true);
+            playeranimasi.SetBool("tembak", false);
+
+
+        }
+
+    }
+}

@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class onbasicattack : MonoBehaviour
+{
+    public GameObject basicattack;
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            basicattack.SetActive(true);
+        }else if (Input.GetKeyUp(KeyCode.K))
+        {
+            basicattack.SetActive(false);
+        }
+    }
+}

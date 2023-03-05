@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;//supaya kita bisa mengunakan tipe data text
+
+public class DemoScene_Player : MonoBehaviour
+{
+    [SerializeField] private Text moveSpeedText;//supaya textnya jadi public
+
+    private float speed = 3f;
+
+    private void Update()
+    {
+        moveSpeedText.text = "Move Speed: " + speed;
+    }
+
+    public void IncreaseMoveSpeed(int amount)
+    {
+        speed += amount;//amount = harus teken tahan dulu baru nambah
+    }
+
+    public void MoveLeft()//jika pencet tombol kiri karaktek akan bergerak kekiri
+    {
+        Vector3 xPos = Vector3.left;
+        transform.position += xPos * speed * Time.deltaTime;
+    }
+
+    public void MoveRight()//jika pencet tombol kanan karaktek akan bergerak kekakan
+    {
+        Vector3 xPos = Vector3.right;
+        transform.position += xPos * speed * Time.deltaTime;
+    }
+}

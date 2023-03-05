@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System;
+
+
+
+public class boss : MonoBehaviour
+{
+    int boss1 = 1000;
+    [SerializeField] Text bossText;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("attack"))
+        {
+            Destroy(other.gameObject);
+            boss1 -= 10;
+            bossText.text = "boss :" + boss1;
+
+        }
+        if (other.gameObject.CompareTag("attack2"))
+        {
+            boss1 -= 10;
+            bossText.text = "boss :" + boss1;
+
+        }
+        if (boss1 <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+}

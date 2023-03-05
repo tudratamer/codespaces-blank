@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+
+public class win : MonoBehaviour
+{
+    int barang = 0;
+    public Text textbarang;
+    public GameObject infobaran;
+    public GameObject daftarbarang;
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag == "object")
+        {
+            Destroy(other.gameObject);//untuk menghancurkan isi dari variabel object jika bersentuhan dengan object yang memiliki codingan sendiri
+            barang += 1;
+        }
+        if((other.gameObject.tag == "Player") && barang == 3) // syarat untuk pindah scene (player bersentuhan dengan object yang memiliki codingan ini dan varibel barang == 3)
+        {
+            SceneManager.LoadScene("win");
+        }
+        textbarang.text = barang.ToString("0") + "/3";
+        
+    }
+    // codingan untuk memamanggil sesuatu dengan pencet tab di tahan
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))//jika tombol di pencet kebawah (aktif ketika tombol lagi menuju kebawah)
+        {
+            infobaran.SetActive(false);
+            daftarbarang.SetActive(true);
+        }
+        if (Input.GetKeyUp(KeyCode.Tab))//jika tombol tidak pencet(aktif ketika tombol lagi menuju keatas)
+        {
+            daftarbarang.SetActive(false);
+            
+        }
+    }
+}

@@ -1,0 +1,51 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;//supaya bisa mengunakan tipe data text
+
+public class Timersettings : MonoBehaviour
+{
+    public  Text TextTimer;
+    public float waktu = 100;
+
+    public bool GameAktif = true;
+    public GameObject CanvasKalah;
+
+    void SetText()
+    {
+        int Menit = Mathf.FloorToInt(waktu / 60);//waktunya di bagi 60(contoh waktu = 60 jadi 1 menit
+        int Detik = Mathf.FloorToInt(waktu % 60);//sisa bagi dari waktu(contoh waktu 100 di bagi 60 sisanya 40
+        TextTimer.text = Menit.ToString("00") + ":" + Detik.ToString("00");//suapaya text waktunya bisa berubah sesuai dengan waktunya
+    }
+
+    float s;
+
+   
+    void Update() 
+    {
+        if (GameAktif)
+        {
+            s += Time.deltaTime;//supaya delay pengurangan/pertambahan  waktunya perframe/perdetik
+            if (s >= 1)//jika waktu lebih dari 1 maka waktunya berkurang
+            {
+                waktu--;
+                s = 0;
+            }
+        }
+        if(GameAktif && waktu <= 0)//jika waktunya 0 makanya akan muncul scene "Game Kalah"
+        {
+            Debug.Log("Game kalah");
+            CanvasKalah.SetActive(true);
+            GameAktif = false;
+        }
+
+
+
+        SetText();
+       
+
+
+    }
+}
+

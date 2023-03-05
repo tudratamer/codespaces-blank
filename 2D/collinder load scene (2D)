@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class LevelMove : MonoBehaviour
+{
+    public int sceneBuildIndex;
+
+    // Level move dikategorikan masuk, jika collider memiliki tag pemain
+    // Pindahkan game ke scene lain
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+
+        // Bisa menggunakan other.GetComponent<Player>() untuk melihat apakah objek game memiliki komponen Player
+        // Tag juga berfungsi.untuk memastikan hanya collinder dengan tag player saja yang bisa masuk
+        if (other.tag == "Player")
+        {
+            // Player entered, so move level
+            SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
+        }
+    }
+}

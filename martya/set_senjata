@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System;
+
+public class set_senjata : MonoBehaviour
+{
+    public GameObject gunplayer;
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            gunplayer.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            gunplayer.SetActive(false);
+        }
+    }
+}

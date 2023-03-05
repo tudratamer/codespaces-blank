@@ -1,0 +1,25 @@
+using UnityEngine;
+using System.Collections;
+
+
+public class timer : MonoBehaviour
+{
+
+	// After this time, the object will be destroyed
+	public float timeToDestruction;
+
+
+	void Start()
+	{
+		Invoke("DestroyMe", timeToDestruction);//memanggil function destroyme() ketika variable timetodestruction(ini kayak waktunya) mencapai 0
+	}
+
+
+	// This function will destroy this object :(
+	void DestroyMe()//function supaya object yang memilik  codingan ini hancur
+	{
+		Destroy(gameObject);
+
+		// Bye bye!
+	}
+}

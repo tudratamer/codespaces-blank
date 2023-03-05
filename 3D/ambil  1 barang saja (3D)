@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class pickupitem : MonoBehaviour
+{
+    public GameObject myHands; //referensi ke tangan Anda / posisi di mana Anda ingin objek Anda pergi
+    bool canpickup; //bool untuk melihat apakah Anda dapat atau tidak dapat mengambil item tersebut
+    GameObject ObjectIwantToPickUp; //objek game tempat Anda bertabrakan
+    bool hasItem; // bool untuk melihat apakah Anda memiliki item di tangan Anda
+    // Start is called before the first frame update
+    void Start()
+    {
+        canpickup = false;    //menyetel keduanya ke false
+        hasItem = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (canpickup == true) // jika Anda memasukkan collider objek
+        {
+            if (Input.GetKeyDown("f"))  // bisa e atau kunci apa saja
+            {
+                hasItem = true;
+                ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = true;   //membuat rigidbody tidak ditindaklanjuti oleh kekuatan
+                ObjectIwantToPickUp.transform.position = myHands.transform.position; // mengatur posisi objek ke posisi tangan Anda
+                ObjectIwantToPickUp.transform.parent = myHands.transform; //membuat objek menjadi anak dari induk sehingga bergerak dengan tangan
+            }
+        }
+        if (Input.GetKeyDown("e") && hasItem == true) // jika Anda memiliki item dan mendapatkan kunci untuk menghapus objek, sekali lagi dapat berupa kunci apa saja
+        {
+            hasItem = false;
+            ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = false; // membuat rigidbody bekerja lagi
+
+            ObjectIwantToPickUp.transform.parent = null; // jadikanlah benda itu bukan anak tangan
+        }
+    }
+    private void OnTriggerEnter(Collider other) // untuk melihat kapan pemain memasuki collider
+    {
+        if ((other.gameObject.tag == "object") || (other.gameObject.tag == "itemquest")) //pada objek yang ingin Anda ambil atur tag menjadi apa saja, dalam hal ini "objek"
+        {
+            canpickup = true;  //setel pick up bool ke true
+            ObjectIwantToPickUp = other.gameObject; //atur objek game yang Anda tabrak menjadi objek yang dapat Anda rujuk
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        canpickup = false; //ketika Anda meninggalkan collider, setel bool canpickup ke false
+
+    }
+}

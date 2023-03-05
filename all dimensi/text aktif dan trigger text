@@ -1,0 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class questnpc : MonoBehaviour
+{
+    public GameObject texthomeless;   //
+    public GameObject textquest;      // text yang mau di munculkan
+    public GameObject texthomeless2;  //
+    public GameObject hadiah;         //
+
+    bool quest = false;        // di gunakan supaya text yang sama  tidak muncul lagi  ketika sudah di trigger
+    bool questselesai  = false;//
+    private void OnTriggerStay(Collider other)
+    {
+        if ((other.gameObject.tag == "Player") && quest == false && questselesai == false)
+        {
+            texthomeless.SetActive(true);
+            quest = true;
+            
+        }
+       
+        if ((other.gameObject.tag == "itemquest") && quest == true)
+        {
+            texthomeless2.SetActive(true);
+            textquest.SetActive(false);
+            questselesai = true; // supaya menquestnya cuma bisa sekali
+            quest = false;       
+            hadiah.SetActive(true);
+            Destroy(other.gameObject);
+        }
+        
+
+
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown("f") && quest == true)// jika pencet f texthomeless tidak aktif dan textquest aktif dengan syarat quest lagi berjalan
+        {
+            texthomeless.SetActive(false);
+            textquest.SetActive(true);
+        }
+        if (Input.GetKeyDown("f") && questselesai == true)
+        {
+            texthomeless2.SetActive(false);
+        }
+    }
+
+
+}

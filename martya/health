@@ -1,0 +1,76 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System;
+
+public class health : MonoBehaviour
+{
+    int health1 = 100;
+    public GameObject canvaskalah;
+    public GameObject player;
+    [SerializeField] Text healthText;
+    [SerializeField] Text healthbackpack;
+    public GameObject buttonpenyembuh;
+    int obatpenyembuh = 1;
+
+    void Update()
+    {
+        gunakanhealth();
+        
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("health"))
+        {
+            Destroy(other.gameObject);
+            obatpenyembuh += 1;
+            healthbackpack.text = "OBAT PENYEMBUH :" + obatpenyembuh;
+
+        }else if (other.gameObject.CompareTag("drone"))
+        {
+
+            Destroy(other.gameObject);
+            health1 -= 25;
+            healthText.text = " :" + health1;
+            if (other.gameObject.CompareTag("shield"))
+            {
+                Destroy(other.gameObject);
+            }
+        }
+        if (health1 <= 0)
+        {
+            canvaskalah.SetActive(true);
+            Time.timeScale = 0;
+            player.SetActive(false);
+
+        }
+        if (other.gameObject.CompareTag("damage2"))
+        {
+            health1 -= 10;
+            healthText.text = " :" + health1;
+        }
+        if (other.gameObject.CompareTag("damage4"))
+        {
+            health1 -= 10;
+            healthText.text = " :" + health1;
+        }
+
+    }
+    public void gunakanhealth()
+    {
+        if (obatpenyembuh >= 1 && Input.GetKeyDown(KeyCode.L) && health1 <= 200)
+        {
+            health1 += 10;
+            obatpenyembuh -= 1;
+            healthText.text = " :" + health1;
+            healthbackpack.text = "OBAT PENYEMBUH :" + obatpenyembuh;
+        }else if (obatpenyembuh <= 0 && Input.GetKeyDown(KeyCode.L))
+        {
+            health1 += 0;
+            obatpenyembuh -= 0;
+            healthText.text = "  :" + health1;
+            healthbackpack.text = "OBAT PENYEMBUH :" + obatpenyembuh;
+        }
+    }
+}

@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class spawnitem : MonoBehaviour
+{
+    public GameObject[] Object;
+    public float spawntime;
+    public float spawndelay;
+
+    void Start()
+    {
+        InvokeRepeating("spawnitems", spawntime, spawndelay);
+    }
+
+    void spawnitems()
+    {
+
+        int randomIndex = Random.Range(0, Object.Length);
+        Vector3 randomSpawnPosition = new Vector3(Random.Range(500,-800), 250, Random.Range(830,-600));
+
+        Instantiate(Object[randomIndex], randomSpawnPosition, Quaternion.identity);
+    }
+}

@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+
+public class basicattack : MonoBehaviour
+{
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("damage"))
+        {
+            Destroy(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("damage2"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
+
+}

@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class musuh : MonoBehaviour
+{
+    public GameObject drop;
+    public Transform drone;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("attack"))
+        { 
+            Destroy(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("attack"))
+        {
+            Vector3 position = new Vector3(Random.Range(411, 412), 13, Random.Range(-4308, -4309));
+            Instantiate(drop,drone.position,Quaternion.identity);
+        }
+    }
+}

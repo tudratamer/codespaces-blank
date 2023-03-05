@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class spawnrandom : MonoBehaviour
+{
+    public GameObject[] Object;
+
+    // Update is called once per frame
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("lantai"))
+        {
+            int randomIndex = Random.Range(0, Object.Length);
+            Vector3 randomSpawnPosition = new Vector3(Random.Range(-40,-400), 700, Random.Range(-450, 400));
+
+            Instantiate(Object[randomIndex], randomSpawnPosition, Quaternion.identity);
+        }
+    }
+}

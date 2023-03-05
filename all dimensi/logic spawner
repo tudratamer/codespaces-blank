@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class spawnermeteor : MonoBehaviour
+{
+    public GameObject objectspawn;
+    public float spawnInterval = 1;
+    public Text timerText;
+    float waktu = 0;
+
+    float time = 0;
+
+    void Update()
+    {
+        if (waktu >= 10)
+        {
+            spawnInterval -= 0.0001f;
+        }
+
+        time += Time.deltaTime;//time akan terus bertambah
+        if (time >= spawnInterval)// jika time lebih besar dari spawninterval maka time di kurang spawnInterval
+        {
+            time -= spawnInterval;
+
+            if (objectspawn != null)//object spawn ketika time lebih besar dari spawnInterval
+            {
+                var position = new Vector3(Random.Range(-6.0f, 10.0f), 5, Random.Range(16.0f, 16.0f));//posisi object spawn
+                Instantiate(objectspawn, position, Quaternion.identity);//codingan supaya object muncul
+            }
+        }
+        waktu += Time.deltaTime;
+        timerText.text = "score :" + waktu.ToString("00");//codingan supaya text berubah sesua dengan waktu
+    }
+}
